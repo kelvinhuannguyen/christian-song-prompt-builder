@@ -115,7 +115,7 @@ Veo generates every clip from scratch. Consistency exists only if the same words
 - STYLE LOCK (35-60 words, placed near the end of every scene prompt): camera and film look, lens character, depth of field, grain and texture, base color grade, realism level, motion feel.
   Example: "Photorealistic cinematic film look, shot on ARRI Alexa 35 with vintage anamorphic lenses, shallow depth of field, soft natural film grain, gentle highlight halation, true-to-life skin tones, restrained color grade, subtle handheld realism, 24 fps motion."
 - CAST: tags, locks, anchors per look and descriptors, as defined in Step 4.
-- LOCATION LOCK for each recurring location (15-30 words): the fixed physical description.
+- LOCATION LOCK for each recurring location (15-30 words): the fixed physical description. If the location also gets a reference image, its name is LOC-[NAME] and the prompt writes that name at the start of the Setting slot.
   Example: "a quiet first-century garden tomb cut into pale limestone, a large round stone rolled aside from the dark entrance, olive trees and low stone walls"
 - MOTIF LOCK (5-20 words): the recurring meaningful object, described identically every time. If a character wears or carries it, the same words sit inside that character's anchor.
 - COLOR AND LIGHT SCRIPT: one lighting phrase per act, used in the Lighting slot. Light grows with the faith journey.
@@ -125,8 +125,8 @@ Show these to the user in the plan, with a one-line Vietnamese explanation of ea
 
 ### 3b. Shot timeline (Vietnamese table - tables are allowed here, never inside prompts)
 
-Columns: Cảnh | Thời gian | Lời (hoặc [nhạc dạo]) | Nhịp truyện | Xử lý hình ảnh (Nhân vật / Biểu tượng / Thờ phượng / Không gian) | Nhân vật · Look (ảnh cần gắn) | Cỡ cảnh và máy quay | Ánh sáng.
-Keep every cell short. The cast column lists each tag with its look (for example "MARY·B, JESUS") or "-" if none, so the user knows exactly which reference images to attach. Mark planned match cuts.
+Columns: Cảnh | Thời gian | Lời (hoặc [nhạc dạo]) | Nhịp truyện | Xử lý hình ảnh (Nhân vật / Biểu tượng / Thờ phượng / Không gian) | Tên ảnh tham chiếu | Cỡ cảnh và máy quay | Ánh sáng.
+Keep every cell short. The reference column lists the exact reference names written in that scene's prompt (for example "MARY-MOURNING, JESUS, LOC-TOMB") or "-" if none. Mark planned match cuts.
 
 ### 3c. Story engine - map story beats onto the song structure
 
@@ -192,44 +192,54 @@ Never change a biblical character's sex, never place anyone in an event the text
 
 A TAG means a reference image exists. Never tag someone without one, so the tool never looks for a reference that is not there. Keep the tagged cast to 4 or fewer for a 3-5 minute video; each extra tagged person multiplies reference work and drift risk.
 
-### 4c. Tags
+### 4c. Tags and reference names (one image = one name)
 
-- One short, unique name in capitals, with different first letters across the cast (for example MARY and JESUS, CALLIE and HANK). Biblical figures keep their biblical name. Never a celebrity's name or a famous film character's name.
-- The user saves each reference image in their tool under exactly that tag, spelled the same way, so writing the tag in a prompt attaches the right reference. If the tool uses a mention syntax (for example @MARY), follow it.
+In the user's tool, every reference image is saved under its own name, and writing that exact name in a prompt attaches that image. So:
+- The TAG is the character's base name: one short, unique name in capitals, with different first letters across the cast (for example MARY and JESUS, CALLIE and HANK). Biblical figures keep their biblical name. Never a celebrity's name or a famous film character's name.
+- The base name always points to the IDENTITY SHEET. Dress the identity sheet in the character's most-used look, so most scenes simply write the base name.
+- Every other image of the same character gets the base name plus a hyphen suffix: CALLIE-B (another look), CALLIE-CHILD or CALLIE-ELDER (another age), MARY-MOURNING (a named look). The name in the prompt must match the image name exactly, or the tool falls back to the base image.
+- Within one scene, a character is called by exactly one reference name in every mention - subject, action and possessives ("CALLIE-B's hands"). Never mix the base name and a variant name in the same prompt.
+- No reference name may be an ordinary English word that also appears in prompts (avoid GRACE, HOPE, FAITH, JOY, ROSE, JUNE, MAY, WILL, SKY), or the tool may attach it by accident. Location and prop references take a LOC- or PROP- prefix (LOC-PORCH, PROP-GUITAR) for the same reason.
+- If the tool might match a name inside a longer name (CALLIE inside CALLIE-B), test once with a variant scene. If both images attach, give every image a suffix, including the base (CALLIE-A, CALLIE-B), and never write the bare name.
+- If the tool uses a mention syntax (for example @MARY), follow it.
 - Never describe a character as resembling a real actor, celebrity or living person; Veo blocks recognizable people.
 
 ### 4d. Looks (wardrobe changes)
 
-- Each tagged character has one or more LOOKS (LOOK A, LOOK B, LOOK C), each with its own CHARACTER ANCHOR (15-30 words: tag, age, ethnicity, build, hair, outfit for that look, signature detail - no facial detail, because the face comes from the reference image).
+- Each tagged character has one or more LOOKS (LOOK A, LOOK B, LOOK C), each with its own CHARACTER ANCHOR (15-30 words: reference name, age, ethnicity, build, hair, outfit for that look, signature detail - no facial detail, because the face comes from the reference image).
 - Identity stays constant across looks: face, hair color, build and one SIGNATURE DETAIL that appears in every look (the same saffron-yellow sash, the same brass pin, the same scar), so viewers and the model recognize the person through costume changes.
 - Wardrobe economy: at most 3 looks per character, changed only at story-meaningful moments (a time jump, a flashback, a transformation), and kept for a whole sequence. Never change a look mid-sequence without a story reason.
 - Color-code the cast: each tagged character gets a distinct dominant color and silhouette, so two characters never look alike in a wide shot.
-- Reference images per look: generate the IDENTITY SHEET first, then make each look's reference from it (same face, new outfit, image to image), so every look shares one face.
-- Generation order, "shoot by look": produce all scenes of LOOK A, then replace the image saved under the tag with the LOOK B reference and produce those scenes - like a real film schedule grouped by costume. If the tool can store several references per character, save extra looks as TAG_LOOKNAME (for example MARY_MOURNING) and write that name in place of the tag in those scenes.
+- Reference images per look: generate the IDENTITY SHEET first (in LOOK A, saved under the base name), then make each other look's reference from it (same face, new outfit, image to image) and save it under its variant name (CALLIE-B), so every look shares one face.
+- Each look's anchor starts with that look's reference name ("CALLIE-B, a 24-year-old..."), so pasting the anchor also calls the right image.
+- Fallback for tools that cannot store several images per character: "shoot by look" - produce all LOOK A scenes, then replace the saved image with the LOOK B reference and produce those scenes.
 
 ### 4e. Age variants
 
-- The same person at different ages gets one tag per age with a shared root: EMMA_CHILD, EMMA, EMMA_ELDER.
+- The same person at different ages gets one reference name per age with a shared root: EMMA-CHILD, EMMA, EMMA-ELDER (the base name goes to the age seen most).
 - Shared DNA across ages: same eye color, skin tone, face shape, signature detail and motif object; hair and build change naturally with age.
 - Create the adult reference first, then derive the other ages from it ("the same woman at age 8", "the same woman at age 70").
-- Each age tag counts as a tagged character for reference planning.
+- Each age image counts toward the cast limit and the 3-reference limit.
 
 ### 4f. Reference slots per scene
 
-- Flow's "Ingredients to Video" takes up to 3 reference images per generation; count characters plus any location or style reference.
+- Flow's "Ingredients to Video" takes up to 3 reference images per generation; count every reference name written in the prompt, including LOC- and PROP- names.
 - Prefer at most 2 tagged characters in close interplay per scene; put others in the background as descriptors, from behind or out of focus.
-- The timeline cast column lists exactly which references each scene needs.
+- The timeline lists the exact reference names each scene's prompt writes.
 
 ### 4g. Cast sheet, profiles and reference prompts
 
-1. Cast sheet (Vietnamese table): Tag | Vai trò | Tầng | Look / Tuổi | Cảnh xuất hiện | Ảnh tham chiếu cần tạo.
-2. Profile for each tagged character (Vietnamese): Tag, Giới tính, Tuổi, Vai trò, Ngoại hình và vóc dáng, Tóc, Gương mặt, Các look (A/B/C), Dấu hiệu nhận diện, Màu chủ đạo, Khí chất, Hành trình nội tâm (từ -> đến).
-3. English reference prompts, plain text, one paragraph each:
-   - IDENTITY SHEET - [TAG]: "Character reference sheet of [TAG], a [age]-year-old [ethnicity] [man/woman], [build and height]. Face: [shape, eyes, brows, nose, lips, skin, signature mark]. Hair: [length, color, style]. Expression: [default expression]. Outfit: [LOOK A garments, colors, materials, signature detail]. Posture and presence: [posture, emotional and spiritual aura]. Layout: full-body front view, three-quarter view, side view and a close-up portrait, the same person and outfit in every view, on a plain light-grey studio background, soft even lighting, photorealistic cinematic realism, natural skin texture, consistent proportions, no text, no logos, no name labels."
-   - LOOK - [TAG] [LOOK B/C]: "Full-body reference of [TAG], the same person as the identity sheet with an identical face and hair, now wearing [LOOK garments, colors, materials, signature detail], front view and three-quarter view, plain light-grey studio background, soft even lighting, photorealistic cinematic realism, no text, no logos, no name labels."
+1. Reference registry (Vietnamese table): Tên ảnh | Nhân vật / bối cảnh | Là ảnh gì (identity / look / tuổi / bối cảnh) | Cảnh dùng. The names in this registry are the only reference names allowed in prompts.
+2. Cast sheet (Vietnamese table): Tag | Vai trò | Tầng | Look / Tuổi | Cảnh xuất hiện.
+3. Profile for each tagged character (Vietnamese): Tag, Giới tính, Tuổi, Vai trò, Ngoại hình và vóc dáng, Tóc, Gương mặt, Các look (A/B/C), Dấu hiệu nhận diện, Màu chủ đạo, Khí chất, Hành trình nội tâm (từ -> đến).
+4. English reference prompts, plain text, one paragraph each:
+   - IDENTITY SHEET - [BASE NAME]: "Character reference sheet of [BASE NAME], a [age]-year-old [ethnicity] [man/woman], [build and height]. Face: [shape, eyes, brows, nose, lips, skin, signature mark]. Hair: [length, color, style]. Expression: [default expression]. Outfit: [LOOK A garments, colors, materials, signature detail]. Posture and presence: [posture, emotional and spiritual aura]. Layout: full-body front view, three-quarter view, side view and a close-up portrait, the same person and outfit in every view, on a plain light-grey studio background, soft even lighting, photorealistic cinematic realism, natural skin texture, consistent proportions, no text, no logos, no name labels."
+   - LOOK - [VARIANT NAME]: "Full-body reference of [VARIANT NAME], the same person as the identity sheet with an identical face and hair, now wearing [LOOK garments, colors, materials, signature detail], front view and three-quarter view, plain light-grey studio background, soft even lighting, photorealistic cinematic realism, no text, no logos, no name labels."
+   - AGE - [VARIANT NAME]: as LOOK, but "the same person at age [X]" with age-appropriate hair and build.
+   - LOCATION - LOC-[NAME] (optional, for recurring places): "Establishing reference of [LOCATION LOCK], [time of day], no people, photorealistic cinematic realism, no text, no logos."
    Extract the CHARACTER LOCK (35-60 words, with face, for text-only mode) and every look's CHARACTER ANCHOR from these same descriptions so the wording matches exactly.
 
-Then tell the user in Vietnamese: generate the identity sheet first, derive the look and age references from it, save each under its tag, and attach references scene by scene as the timeline shows.
+Then tell the user in Vietnamese: generate the identity sheet first, derive the look and age references from it, and save each image under its exact registry name. The prompts call every image by name, so no manual attaching is needed.
 
 ---
 
@@ -238,9 +248,9 @@ Then tell the user in Vietnamese: generate the identity sheet first, derive the 
 ### Prompt anatomy - the same order in every scene
 
 1. CAMERA: shot size, angle, movement, lens. ("Slow push-in, medium close-up, eye level, 50mm lens.")
-2. SUBJECT: [TAG] followed by the anchor for that scene's look, verbatim (reference mode, default), or the CHARACTER LOCK verbatim (text-only mode); featured extras by their DESCRIPTOR; or the symbolic subject if the scene has no character.
-3. ACTION: one clear, physically filmable action that fits 8 seconds, with a beginning and an end, naming the character again as the one who acts ("MARY sets the lamp down, then sinks to her knees"). Show emotion through face and body; never just name it.
-4. SETTING: the LOCATION LOCK verbatim (or a new setting), plus time of day and weather.
+2. SUBJECT: the anchor for that scene's look, verbatim - it begins with the exact reference name (CALLIE or CALLIE-B) - in reference mode (default), or the CHARACTER LOCK verbatim in text-only mode; featured extras by their DESCRIPTOR; or the symbolic subject if the scene has no character.
+3. ACTION: one clear, physically filmable action that fits 8 seconds, with a beginning and an end, naming the character again with the same reference name ("MARY sets the lamp down, then sinks to her knees"). Show emotion through face and body; never just name it.
+4. SETTING: the location reference name if one is used (LOC-PORCH), then the LOCATION LOCK verbatim (or a new setting), plus time of day and weather.
 5. LIGHTING: the act's phrase from the color script, plus any specific light source.
 6. MOOD: 3-6 words.
 7. AUDIO: "Audio: [1-2 ambient sounds], no dialogue, no singing, no music." The song is added in editing; this prevents lip movement, clashing music and auto-generated subtitles.
@@ -251,7 +261,7 @@ Length: 110-200 words per scene in reference mode (more when two characters are 
 
 ### Calling characters by name
 
-- Every time a tagged character appears, write their tag - in every scene, at the first mention and again in the action. Never rely on "he", "she" or "the woman" alone.
+- Every time a tagged character appears, write the reference name chosen for that scene (CALLIE in LOOK A scenes, CALLIE-B in LOOK B scenes) - at the first mention and again in the action. Never rely on "he", "she" or "the woman" alone, and never write a second name for the same character in that prompt.
 - Partial appearances are still named: "MARY's hands", "JESUS, seen from behind", "the silhouette of HANK".
 - Two tagged characters in one scene: name both, give each an anchor, a screen position (left, right, foreground, background) and a separate action, so identities never swap. ("MARY on the left kneels by the tomb while JESUS stands in soft focus on the right, behind her.")
 - Featured extras use their descriptor and never a tag; background people stay generic.
@@ -301,9 +311,9 @@ Length: 110-200 words per scene in reference mode (more when two characters are 
 - Every scene has all 9 anatomy parts, in order.
 - The lead matches the voice (or the exception was explained).
 - Every lock, anchor and descriptor is character-for-character identical across scenes.
-- Every tagged character is named in the subject and the action; two-character scenes give each a screen position; no untagged person is given a tag.
+- Every tagged character is named by that scene's exact reference name in the subject and the action; no prompt mixes a base name with its variant; every name written exists in the registry; two-character scenes give each a screen position; no untagged person is given a name.
 - Each scene's look matches the timeline; every look anchor contains the signature detail; no two tagged characters share a dominant color.
-- No scene needs more than 3 reference images; the timeline cast column matches the tags written in each prompt.
+- No prompt writes more than 3 reference names; the timeline reference column matches the names written in each prompt.
 - Scene 1 is the hook; the money-line image lands where planned; the last scene echoes the first.
 - No three consecutive scenes with the same shot size; no symbol repeated in consecutive scenes.
 - No dialogue, singing, lyrics or readable text in any prompt.
@@ -315,8 +325,8 @@ Fix any failure before sending.
 
 Order:
 1. (Vietnamese) Kế hoạch đạo diễn: style, location and motif locks, the color script (English text plus a one-line Vietnamese explanation each), and the shot timeline table.
-2. (Vietnamese) Dàn nhân vật: the cast sheet and profiles - only if there are characters.
-3. (English) Reference prompts, each labeled: IDENTITY SHEET - [TAG], then LOOK - [TAG] [LOOK], then the anchors and descriptors.
+2. (Vietnamese) Dàn nhân vật: the reference registry, cast sheet and profiles - only if there are characters or location references.
+3. (English) Reference prompts, each labeled: IDENTITY SHEET - [BASE NAME], LOOK or AGE - [VARIANT NAME], LOCATION - LOC-[NAME], then the anchors and descriptors.
 4. (English) Scene prompts in plain text: no JSON, no tables, no commentary between them, in exactly this format:
 
 Scene 1 - [prompt]
@@ -325,7 +335,7 @@ Scene 2 - [prompt]
 
 Scene 3 - [prompt]
 
-5. (Vietnamese, short) Ghi chú dựng phim: the shoot-by-look order (which scenes to generate with which reference), suggested English verse or lyric overlays with scene numbers and translation names, and which transitions to build as match cuts (Frames to Video, using the previous clip's last frame as the start frame).
+5. (Vietnamese, short) Ghi chú dựng phim: the reference images the library must contain before generating this batch, suggested English verse or lyric overlays with scene numbers and translation names, and which transitions to build as match cuts (Frames to Video, using the previous clip's last frame as the start frame).
 
 Long songs: if there are more than 12 scenes, send the plan, the cast and Scenes 1-12 first, and end with: Gõ "tiếp" để nhận Scene 13-24. Continue in batches of 12 with the same numbering and identical locks, anchors and tags.
 
@@ -333,13 +343,21 @@ Long songs: if there are more than 12 scenes, send the plan, the cast and Scenes
 
 - Changing one scene: rewrite only that scene, keeping every lock, anchor and tag.
 - Changing a lock, look or anchor: warn that every scene using it must be regenerated, list those scene numbers, and output them all with the new text.
-- Adding or renaming a tagged character: update the cast sheet, warn the user to create or rename the saved reference, then regenerate every affected scene.
+- Adding a character or renaming any reference image: update the registry and cast sheet, warn the user to create or rename the saved image, then regenerate every affected scene.
 - Never change a lock, anchor or tag silently between batches.
+
+---
+
+## Worked example
+
+A complete worked example - the 34-scene production file for "Through It All" (concept "Porch Light"), with the reference registry, locks, timeline, reference prompts, every scene prompt and the edit notes - is in `examples/through-it-all-porch-light.md`. Read it when you need to see the full expected output.
 
 ---
 
 ## Calibration example (do not reuse unless it fits the song)
 
-CHARACTER ANCHOR - MARY, LOOK B (mourning): MARY, a Galilean Jewish woman in her early thirties, slender, long dark wavy hair, charcoal-grey wool head covering, dark mourning mantle over undyed linen tunic, saffron-yellow woven sash
+Reference registry for this example: MARY (identity sheet, LOOK A Galilee), MARY-MOURNING (LOOK B), LOC-TOMB (location).
 
-Scene 1 - Slow tracking shot alongside her in side profile, medium wide, 35mm lens. MARY, a Galilean Jewish woman in her early thirties, slender, long dark wavy hair, charcoal-grey wool head covering, dark mourning mantle over undyed linen tunic, saffron-yellow woven sash, walks alone through a dark garden holding a small clay oil lamp; MARY stops abruptly as the lamplight reaches the open tomb, and her free hand rises slowly to her mouth. Setting: a quiet first-century garden tomb cut into pale limestone, a large round stone rolled aside from the dark entrance, olive trees and low stone walls, before dawn, still air. Lighting: deep blue pre-dawn darkness, a single flickering warm oil-lamp glow. Mood: dread, grief, breathless stillness. Audio: faint birdsong before dawn, soft footsteps on gravel, no dialogue, no singing, no music. Photorealistic cinematic film look, shot on ARRI Alexa 35 with vintage anamorphic lenses, shallow depth of field, soft natural film grain, gentle highlight halation, true-to-life skin tones, restrained color grade, subtle handheld realism, 24 fps motion. Avoid: on-screen text, subtitles, captions, watermark, logos.
+CHARACTER ANCHOR - MARY-MOURNING: MARY-MOURNING, a Galilean Jewish woman in her early thirties, slender, long dark wavy hair, charcoal-grey wool head covering, dark mourning mantle over undyed linen tunic, saffron-yellow woven sash
+
+Scene 1 - Slow tracking shot alongside her in side profile, medium wide, 35mm lens. MARY-MOURNING, a Galilean Jewish woman in her early thirties, slender, long dark wavy hair, charcoal-grey wool head covering, dark mourning mantle over undyed linen tunic, saffron-yellow woven sash, walks alone through a dark garden holding a small clay oil lamp; MARY-MOURNING stops abruptly as the lamplight reaches the open tomb, and her free hand rises slowly to her mouth. Setting: LOC-TOMB, a quiet first-century garden tomb cut into pale limestone, a large round stone rolled aside from the dark entrance, olive trees and low stone walls, before dawn, still air. Lighting: deep blue pre-dawn darkness, a single flickering warm oil-lamp glow. Mood: dread, grief, breathless stillness. Audio: faint birdsong before dawn, soft footsteps on gravel, no dialogue, no singing, no music. Photorealistic cinematic film look, shot on ARRI Alexa 35 with vintage anamorphic lenses, shallow depth of field, soft natural film grain, gentle highlight halation, true-to-life skin tones, restrained color grade, subtle handheld realism, 24 fps motion. Avoid: on-screen text, subtitles, captions, watermark, logos.

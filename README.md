@@ -62,6 +62,10 @@ Trong công cụ, **mỗi ảnh tham chiếu được lưu dưới một tên ri
 │           └── through-it-all-porch-light.md   # Ví dụ hoàn chỉnh 34 cảnh
 ├── gpt/
 │   └── instructions.txt       # Bản rút gọn cho ChatGPT GPT (< 8.000 ký tự)
+├── dist/
+│   └── christian-song-prompt-builder.plugin   # File cài đặt cho ứng dụng Claude
+├── scripts/
+│   └── build-plugin.sh        # Đóng gói lại file .plugin sau khi sửa skill
 ├── CHANGELOG.md
 └── README.md
 ```
@@ -70,7 +74,9 @@ Trong công cụ, **mỗi ảnh tham chiếu được lưu dưới một tên ri
 
 ### 1. Ứng dụng Claude (plugin)
 
-Tải file `christian-song-prompt-builder.plugin` ở mục **Releases** của repo này. Gửi file đó vào một cuộc trò chuyện trong ứng dụng Claude, rồi bấm nút cài đặt trên thẻ xem trước.
+Tải file [`dist/christian-song-prompt-builder.plugin`](dist/christian-song-prompt-builder.plugin) (bấm vào file rồi chọn **Download raw file**). Gửi file đó vào một cuộc trò chuyện trong ứng dụng Claude, rồi bấm nút cài đặt trên thẻ xem trước.
+
+Sau khi sửa skill, chạy `scripts/build-plugin.sh` để đóng gói lại file `.plugin`.
 
 ### 2. Claude Code
 

@@ -1,6 +1,12 @@
 # Lịch sử phiên bản
 
-Mỗi phiên bản có một tag Git riêng (`v1.0.0` … `v5.0.0`), nên có thể so sánh từng bước ngay trên GitHub.
+Mỗi phiên bản là một commit riêng, nên có thể xem hoặc so sánh từng bước ngay trên GitHub:
+[v1](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/commit/93c8d6ac6ff3a846fd88cc53c5f10cdc0a3cd0d0) ·
+[v2](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/commit/0fb57f30e4209898a8223cb5f017fc6a1ca44e93) ·
+[v3](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/commit/e27635deeed7b735f0eebb32c30a8ee4cd65cc28) ·
+[v4](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/commit/8049ef0c0757b44617dabcdc064943646439306b) ·
+[v5](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/commit/3c1cdae1bb917d0e5ec271d5149ac468265b735a) ·
+[so sánh v1 → v5](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/compare/93c8d6ac6ff3a846fd88cc53c5f10cdc0a3cd0d0...3c1cdae1bb917d0e5ec271d5149ac468265b735a)
 
 ## v5.0.0 — Một ảnh, một tên
 

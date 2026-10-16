@@ -1,0 +1,21 @@
+{
+  "name": "christian-song-prompt-builder",
+  "version": "5.0.0",
+  "description": "Turns Christian and worship song lyrics into a director's treatment and continuity-locked, cinematic Veo 3 / Veo 3.1 prompts for YouTube music videos aimed at American viewers: song analysis, 3 story concepts, a voice-matched lead, a named reference-image cast with wardrobe looks, and 8-second scene prompts.",
+  "author": {
+    "name": "kelvinhuannguyen",
+    "url": "https://github.com/kelvinhuannguyen"
+  },
+  "homepage": "https://github.com/kelvinhuannguyen/christian-song-prompt-builder",
+  "repository": "https://github.com/kelvinhuannguyen/christian-song-prompt-builder",
+  "keywords": [
+    "christian",
+    "worship",
+    "music-video",
+    "veo",
+    "veo3",
+    "google-flow",
+    "prompt-engineering",
+    "faith-film"
+  ]
+}

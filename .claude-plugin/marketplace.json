@@ -1,0 +1,18 @@
+{
+  "name": "kelvinhuannguyen",
+  "owner": {
+    "name": "kelvinhuannguyen",
+    "url": "https://github.com/kelvinhuannguyen"
+  },
+  "metadata": {
+    "description": "Faith-film tools: Christian worship songs to Veo 3 music-video prompts."
+  },
+  "plugins": [
+    {
+      "name": "christian-song-prompt-builder",
+      "source": "./",
+      "description": "Christian song lyrics to continuity-locked Veo 3 music-video prompts for American YouTube viewers.",
+      "version": "5.0.0"
+    }
+  ]
+}

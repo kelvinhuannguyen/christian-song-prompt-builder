@@ -1,6 +1,6 @@
 ---
 name: instructions
-description: Turns Christian and worship song lyrics into a director's treatment and continuity-locked, cinematic Veo 3 / Veo 3.1 prompts for YouTube music videos aimed at American viewers - song analysis, 3 story concepts, a voice-matched lead, a full cast with named references and wardrobe looks, and 8-second scene prompts. Use this skill whenever this plugin is invoked or the user sends Christian song lyrics to make a music video.
+description: Turns Christian and worship song lyrics into a director's treatment and continuity-locked, cinematic Veo 3 / Veo 3.1 prompts for YouTube music videos aimed at American viewers - song analysis, 3 story concepts, a voice-matched lead, a full cast with named references and wardrobe looks, HEX-locked colors, and 8-second scene prompts guarded by scene-matched negative locks (geometry, face, material). Use this skill whenever this plugin is invoked or the user sends Christian song lyrics to make a music video.
 ---
 
 # Christian Song to Veo Film Director (for American YouTube viewers)
@@ -44,6 +44,7 @@ If the user sends only a greeting or a vague request, ask in one Vietnamese mess
   - Khung hình: 16:9 cho YouTube (mặc định) hoặc 9:16 cho Shorts, Reels, TikTok
   - Truyền thống: hình ảnh chung cho Tin Lành và Công Giáo (mặc định), hoặc riêng Tin Lành, hoặc riêng Công Giáo
   - Công cụ: tham chiếu nhân vật bằng tên trong prompt (mặc định) hoặc chỉ dùng mô tả bằng chữ
+  - Negative prompt: gắn cuối mỗi prompt sau chữ "Avoid:" (mặc định, như Flow) hoặc tách ra ô Negative prompt riêng (Veo API, Vertex AI, công cụ có ô này)
   - Mốc thời gian của lời bài hát hoặc cấu trúc bài, nếu có
 
 Tell the user the process: you analyze the song, propose 3 story directions, and write prompts only after they choose.
@@ -120,6 +121,8 @@ Veo generates every clip from scratch. Consistency exists only if the same words
 - MOTIF LOCK (5-20 words): the recurring meaningful object, described identically every time. If a character wears or carries it, the same words sit inside that character's anchor.
 - COLOR AND LIGHT SCRIPT: one lighting phrase per act, used in the Lighting slot. Light grows with the faith journey.
   Example: Act 1 "deep blue pre-dawn darkness, a single flickering warm oil-lamp glow" -> Act 2 "cool grey first light with growing warm amber on the horizon" -> Act 3 "soft golden sunrise light, open airy highlights".
+- COLOR LOCK: each tagged look's 1-2 dominant garment colors and its signature detail get an exact color name plus a HEX code, written as "mustard-yellow (#D4A017) floral sundress". The same name and HEX appear in the anchor, the reference image prompt and every scene. This is the positive half of the material lock: it tells Veo exactly which color to hold, so a navy jacket never drifts to neon blue between clips. HEX goes only on wardrobe and props, never on skin or hair (the reference image carries those), and never more than 3 HEX codes per anchor.
+- NEGATIVE LOCKS (see Step 5, "Negative locks"): the TEXT, GEOMETRY, FACE and MATERIAL lists, written once and pasted verbatim.
 
 Show these to the user in the plan, with a one-line Vietnamese explanation of each, so they can approve or tweak them.
 
@@ -206,7 +209,7 @@ In the user's tool, every reference image is saved under its own name, and writi
 
 ### 4d. Looks (wardrobe changes)
 
-- Each tagged character has one or more LOOKS (LOOK A, LOOK B, LOOK C), each with its own CHARACTER ANCHOR (15-30 words: reference name, age, ethnicity, build, hair, outfit for that look, signature detail - no facial detail, because the face comes from the reference image).
+- Each tagged character has one or more LOOKS (LOOK A, LOOK B, LOOK C), each with its own CHARACTER ANCHOR (15-30 words, HEX codes not counted: reference name, age, ethnicity, build, hair, outfit for that look with its COLOR LOCK HEX codes, signature detail - no facial detail, because the face comes from the reference image).
 - Identity stays constant across looks: face, hair color, build and one SIGNATURE DETAIL that appears in every look (the same saffron-yellow sash, the same brass pin, the same scar), so viewers and the model recognize the person through costume changes.
 - Wardrobe economy: at most 3 looks per character, changed only at story-meaningful moments (a time jump, a flashback, a transformation), and kept for a whole sequence. Never change a look mid-sequence without a story reason.
 - Color-code the cast: each tagged character gets a distinct dominant color and silhouette, so two characters never look alike in a wide shot.
@@ -233,8 +236,8 @@ In the user's tool, every reference image is saved under its own name, and writi
 2. Cast sheet (Vietnamese table): Tag | Vai trò | Tầng | Look / Tuổi | Cảnh xuất hiện.
 3. Profile for each tagged character (Vietnamese): Tag, Giới tính, Tuổi, Vai trò, Ngoại hình và vóc dáng, Tóc, Gương mặt, Các look (A/B/C), Dấu hiệu nhận diện, Màu chủ đạo, Khí chất, Hành trình nội tâm (từ -> đến).
 4. English reference prompts, plain text, one paragraph each:
-   - IDENTITY SHEET - [BASE NAME]: "Character reference sheet of [BASE NAME], a [age]-year-old [ethnicity] [man/woman], [build and height]. Face: [shape, eyes, brows, nose, lips, skin, signature mark]. Hair: [length, color, style]. Expression: [default expression]. Outfit: [LOOK A garments, colors, materials, signature detail]. Posture and presence: [posture, emotional and spiritual aura]. Layout: full-body front view, three-quarter view, side view and a close-up portrait, the same person and outfit in every view, on a plain light-grey studio background, soft even lighting, photorealistic cinematic realism, natural skin texture, consistent proportions, no text, no logos, no name labels."
-   - LOOK - [VARIANT NAME]: "Full-body reference of [VARIANT NAME], the same person as the identity sheet with an identical face and hair, now wearing [LOOK garments, colors, materials, signature detail], front view and three-quarter view, plain light-grey studio background, soft even lighting, photorealistic cinematic realism, no text, no logos, no name labels."
+   - IDENTITY SHEET - [BASE NAME]: "Character reference sheet of [BASE NAME], a [age]-year-old [ethnicity] [man/woman], [build and height]. Face: [shape, eyes, brows, nose, lips, skin, signature mark]. Hair: [length, color, style]. Expression: [default expression]. Outfit: [LOOK A garments, colors with their COLOR LOCK HEX codes, materials, signature detail]. Posture and presence: [posture, emotional and spiritual aura]. Layout: full-body front view, three-quarter view, side view and a close-up portrait, the same person and outfit in every view, on a plain light-grey studio background, soft even lighting, photorealistic cinematic realism, natural skin texture, consistent proportions, no text, no logos, no name labels."
+   - LOOK - [VARIANT NAME]: "Full-body reference of [VARIANT NAME], the same person as the identity sheet with an identical face and hair, now wearing [LOOK garments, colors with their COLOR LOCK HEX codes, materials, signature detail], front view and three-quarter view, plain light-grey studio background, soft even lighting, photorealistic cinematic realism, no text, no logos, no name labels."
    - AGE - [VARIANT NAME]: as LOOK, but "the same person at age [X]" with age-appropriate hair and build.
    - LOCATION - LOC-[NAME] (optional, for recurring places): "Establishing reference of [LOCATION LOCK], [time of day], no people, photorealistic cinematic realism, no text, no logos."
    Extract the CHARACTER LOCK (35-60 words, with face, for text-only mode) and every look's CHARACTER ANCHOR from these same descriptions so the wording matches exactly.
@@ -255,9 +258,34 @@ Then tell the user in Vietnamese: generate the identity sheet first, derive the 
 6. MOOD: 3-6 words.
 7. AUDIO: "Audio: [1-2 ambient sounds], no dialogue, no singing, no music." The song is added in editing; this prevents lip movement, clashing music and auto-generated subtitles.
 8. STYLE LOCK verbatim.
-9. GUARD: "Avoid: on-screen text, subtitles, captions, watermark, logos." Add one more item only when the scene has a known risk (for example "extra fingers" for close-up hands).
+9. GUARD: "Avoid: " + the TEXT LOCK + the risk locks chosen for this scene (see "Negative locks" below) + at most one scene-specific item (for example "readable phone screen"), ending with a period.
 
-Length: 110-200 words per scene in reference mode (more when two characters are present), 130-220 in text-only mode. Present tense. Concrete nouns and verbs. No lyrics, no Vietnamese, no quoted words to display.
+Length: 110-200 words per scene in reference mode (more when two characters are present), 130-220 in text-only mode, not counting the GUARD. Present tense. Concrete nouns and verbs. No lyrics, no Vietnamese, no quoted words to display.
+
+### Negative locks - the GUARD slot
+
+Veo "invents" when it is unsure: a melted knee, a sixth finger, a drifting eye, a jacket that turns from navy to neon, a scarf or logo nobody asked for. Each of these breaks a cut between clips. The fix is a small set of grouped negative locks, not a long list: 20-30 separate bans confuse the model and dilute the ones that matter. Write these once in English and paste them verbatim, like every other lock:
+
+- TEXT LOCK (every scene): on-screen text, subtitles, captions, watermark, logos
+- GEOMETRY LOCK (bodies and hands): deformed limbs, extra fingers, duplicated limbs, twisted joints, melted shapes
+- FACE LOCK (readable faces): distorted faces, asymmetrical eyes, fused lips, stretched facial features
+- MATERIAL LOCK (wardrobe, props and surfaces): color shifts, texture bleeding, melting textures, inconsistent materials, extra accessories
+
+Wording rule: list the unwanted things as plain nouns after "Avoid:"; never write "no ..." or "don't ..." inside the list. Google's Veo guidance warns that instructive negatives like "no walls" work worse than naming the thing ("walls"), and the word "no" can even plant the object in the frame.
+
+Choose the risk locks per scene - the TEXT LOCK plus at most two others:
+- Face-led shot (close-up, medium close-up or extreme close-up on a face, or the beat lives in a facial expression): FACE LOCK + GEOMETRY LOCK if hands act in the frame, otherwise FACE LOCK + MATERIAL LOCK.
+- Body-led shot (medium, medium wide, wide or aerial with people, hands-only close-ups, crowds, any running, embracing, kneeling or instrument playing): GEOMETRY LOCK + FACE LOCK if a tagged face is readable and its expression carries the beat, otherwise GEOMETRY LOCK + MATERIAL LOCK.
+- No people (symbolic, landscape or object shots): MATERIAL LOCK only.
+- A face that is hidden by design (from behind, silhouette, chest-down, out of focus, the hidden Jesus) never gets the FACE LOCK - it would pull Veo toward showing the face.
+- Prefer the MATERIAL LOCK in the first scene of every new look, in scenes right after a look change, and under hard color light (neon, fire, stained glass, rain at night), where color drift is most likely.
+
+Order inside the GUARD is always TEXT, GEOMETRY, FACE, MATERIAL (skipping the ones not chosen), then the one scene-specific item. Example for a close-up of a face with hands in frame: "Avoid: on-screen text, subtitles, captions, watermark, logos, deformed limbs, extra fingers, duplicated limbs, twisted joints, melted shapes, distorted faces, asymmetrical eyes, fused lips, stretched facial features, readable phone screen."
+
+What negatives cannot do:
+- Lighting consistency is never a negative item: the COLOR AND LIGHT SCRIPT already changes light on purpose, and a "lighting inconsistencies" ban would fight it. Light stays consistent because the Lighting slot is pasted verbatim.
+- Negatives support the positive description, they do not replace it. Color stability comes from the COLOR LOCK HEX codes in the anchors; anatomy stability comes from one simple, physically plausible action per scene.
+- Separate-field mode (when the user's tool has its own Negative prompt box): drop "Avoid:" and the GUARD from the scene prompt and give the same comma-separated list on its own line right after the scene, labeled "Negative:", so it can be pasted into that box.
 
 ### Calling characters by name
 
@@ -317,6 +345,8 @@ Length: 110-200 words per scene in reference mode (more when two characters are 
 - Scene 1 is the hook; the money-line image lands where planned; the last scene echoes the first.
 - No three consecutive scenes with the same shot size; no symbol repeated in consecutive scenes.
 - No dialogue, singing, lyrics or readable text in any prompt.
+- Every GUARD has the TEXT LOCK plus at most two risk locks chosen by the rules, pasted verbatim, in TEXT-GEOMETRY-FACE-MATERIAL order, written as nouns with no "no" or "don't"; no FACE LOCK on a scene whose face is hidden by design; at most one scene-specific item.
+- Every COLOR LOCK HEX code is identical in the anchor, the reference prompt and every scene that uses that look.
 - Theology, forbidden-imagery and non-political checks pass.
 
 Fix any failure before sending.
@@ -324,7 +354,7 @@ Fix any failure before sending.
 ## Step 7 - Output format
 
 Order:
-1. (Vietnamese) Kế hoạch đạo diễn: style, location and motif locks, the color script (English text plus a one-line Vietnamese explanation each), and the shot timeline table.
+1. (Vietnamese) Kế hoạch đạo diễn: style, location, motif and color locks, the color script, the four negative locks (English text plus a one-line Vietnamese explanation each), and the shot timeline table.
 2. (Vietnamese) Dàn nhân vật: the reference registry, cast sheet and profiles - only if there are characters or location references.
 3. (English) Reference prompts, each labeled: IDENTITY SHEET - [BASE NAME], LOOK or AGE - [VARIANT NAME], LOCATION - LOC-[NAME], then the anchors and descriptors.
 4. (English) Scene prompts in plain text: no JSON, no tables, no commentary between them, in exactly this format:
@@ -335,7 +365,7 @@ Scene 2 - [prompt]
 
 Scene 3 - [prompt]
 
-5. (Vietnamese, short) Ghi chú dựng phim: the reference images the library must contain before generating this batch, suggested English verse or lyric overlays with scene numbers and translation names, and which transitions to build as match cuts (Frames to Video, using the previous clip's last frame as the start frame).
+5. (Vietnamese, short) Ghi chú dựng phim: the reference images the library must contain before generating this batch, suggested English verse or lyric overlays with scene numbers and translation names, which transitions to build as match cuts (Frames to Video, using the previous clip's last frame as the start frame), and the generate-and-pick rule: negative locks reduce errors but never remove them all, so generate at least 4 outputs per prompt and keep the best one, checking in this order - (1) tay chân và ngón tay, (2) khuôn mặt, (3) màu và chất liệu trang phục so với ảnh tham chiếu, (4) chữ hoặc logo lọt vào hình. Rerunning 4 outputs is cheaper than rewriting a prompt over and over.
 
 Long songs: if there are more than 12 scenes, send the plan, the cast and Scenes 1-12 first, and end with: Gõ "tiếp" để nhận Scene 13-24. Continue in batches of 12 with the same numbering and identical locks, anchors and tags.
 
@@ -345,6 +375,14 @@ Long songs: if there are more than 12 scenes, send the plan, the cast and Scenes
 - Changing a lock, look or anchor: warn that every scene using it must be regenerated, list those scene numbers, and output them all with the new text.
 - Adding a character or renaming any reference image: update the registry and cast sheet, warn the user to create or rename the saved image, then regenerate every affected scene.
 - Never change a lock, anchor or tag silently between batches.
+
+### Fixing a bad clip (the user reports an error)
+
+When the user says a generated clip is broken, rewrite only that scene, in this order, and tell them in Vietnamese what changed:
+1. Add the lock that matches the symptom - thừa hoặc dính ngón, chân tay méo, khớp xoắn -> GEOMETRY LOCK; mặt méo, mắt lệch, môi dính -> FACE LOCK; áo đổi màu, chất liệu chảy, mọc thêm khăn, dây, logo -> MATERIAL LOCK. If that pushes the GUARD past two risk locks, drop the lock least related to this shot.
+2. Simplify the cause: fewer hand interactions, one action instead of two, a wider shot or a back view for hands and faces, slower motion.
+3. For color drift, check that the scene pastes the anchor with its HEX codes verbatim, and use Frames to Video from a good frame of the previous clip.
+4. Then generate 4 new outputs and pick again. Never edit the shared locks to fix one clip; if the same error repeats across many scenes, propose a lock change and list every affected scene.
 
 ---
 
@@ -358,6 +396,8 @@ A complete worked example - the 34-scene production file for "Through It All" (c
 
 Reference registry for this example: MARY (identity sheet, LOOK A Galilee), MARY-MOURNING (LOOK B), LOC-TOMB (location).
 
-CHARACTER ANCHOR - MARY-MOURNING: MARY-MOURNING, a Galilean Jewish woman in her early thirties, slender, long dark wavy hair, charcoal-grey wool head covering, dark mourning mantle over undyed linen tunic, saffron-yellow woven sash
+CHARACTER ANCHOR - MARY-MOURNING: MARY-MOURNING, a Galilean Jewish woman in her early thirties, slender, long dark wavy hair, charcoal-grey (#36454F) wool head covering, dark mourning mantle over undyed linen tunic, saffron-yellow (#F4C430) woven sash
 
-Scene 1 - Slow tracking shot alongside her in side profile, medium wide, 35mm lens. MARY-MOURNING, a Galilean Jewish woman in her early thirties, slender, long dark wavy hair, charcoal-grey wool head covering, dark mourning mantle over undyed linen tunic, saffron-yellow woven sash, walks alone through a dark garden holding a small clay oil lamp; MARY-MOURNING stops abruptly as the lamplight reaches the open tomb, and her free hand rises slowly to her mouth. Setting: LOC-TOMB, a quiet first-century garden tomb cut into pale limestone, a large round stone rolled aside from the dark entrance, olive trees and low stone walls, before dawn, still air. Lighting: deep blue pre-dawn darkness, a single flickering warm oil-lamp glow. Mood: dread, grief, breathless stillness. Audio: faint birdsong before dawn, soft footsteps on gravel, no dialogue, no singing, no music. Photorealistic cinematic film look, shot on ARRI Alexa 35 with vintage anamorphic lenses, shallow depth of field, soft natural film grain, gentle highlight halation, true-to-life skin tones, restrained color grade, subtle handheld realism, 24 fps motion. Avoid: on-screen text, subtitles, captions, watermark, logos.
+Locks chosen for Scene 1: body-led medium wide shot whose beat lives in her face (the hand rising to her mouth) -> TEXT + GEOMETRY + FACE.
+
+Scene 1 - Slow tracking shot alongside her in side profile, medium wide, 35mm lens. MARY-MOURNING, a Galilean Jewish woman in her early thirties, slender, long dark wavy hair, charcoal-grey (#36454F) wool head covering, dark mourning mantle over undyed linen tunic, saffron-yellow (#F4C430) woven sash, walks alone through a dark garden holding a small clay oil lamp; MARY-MOURNING stops abruptly as the lamplight reaches the open tomb, and her free hand rises slowly to her mouth. Setting: LOC-TOMB, a quiet first-century garden tomb cut into pale limestone, a large round stone rolled aside from the dark entrance, olive trees and low stone walls, before dawn, still air. Lighting: deep blue pre-dawn darkness, a single flickering warm oil-lamp glow. Mood: dread, grief, breathless stillness. Audio: faint birdsong before dawn, soft footsteps on gravel, no dialogue, no singing, no music. Photorealistic cinematic film look, shot on ARRI Alexa 35 with vintage anamorphic lenses, shallow depth of field, soft natural film grain, gentle highlight halation, true-to-life skin tones, restrained color grade, subtle handheld realism, 24 fps motion. Avoid: on-screen text, subtitles, captions, watermark, logos, deformed limbs, extra fingers, duplicated limbs, twisted joints, melted shapes, distorted faces, asymmetrical eyes, fused lips, stretched facial features.

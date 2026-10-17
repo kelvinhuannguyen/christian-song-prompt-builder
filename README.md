@@ -4,7 +4,7 @@
 
 *Turns Christian and worship song lyrics into a director's treatment and continuity-locked, cinematic Veo 3 / Veo 3.1 prompts for YouTube music videos aimed at American viewers.*
 
-Phiên bản hiện tại: **v5.0.0**. Xem [CHANGELOG.md](CHANGELOG.md).
+Phiên bản hiện tại: **v5.1.0**. Xem [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -16,7 +16,7 @@ Bạn gửi lời bài hát và thời lượng. Skill làm việc như một đ
 2. **Đề xuất 3 hướng câu chuyện** khác nhau, chấm điểm sức chạm, khả năng viral với khán giả Mỹ và độ khó giữ đồng nhất. Sau đó **dừng lại chờ bạn chọn**.
 3. **Lên kế hoạch đạo diễn.** Viết bộ khóa đồng nhất (style, bối cảnh, motif, kịch bản ánh sáng) và timeline từng cảnh.
 4. **Dựng dàn nhân vật.** Có bảng tên ảnh tham chiếu, prompt tạo ảnh nhận diện, ảnh từng look và ảnh từng độ tuổi.
-5. **Viết prompt cho từng cảnh 8 giây**, theo cấu trúc 9 phần cố định và gửi theo lô 12 cảnh.
+5. **Viết prompt cho từng cảnh 8 giây**, theo cấu trúc 9 phần cố định và gửi theo lô 12 cảnh. Mỗi cảnh có khóa âm (negative lock) chọn theo loại cảnh.
 6. **Tự kiểm tra trước khi gửi**, rồi kèm ghi chú dựng phim: cắt nối, chữ chèn trên hình, bản Shorts.
 
 Người dùng trao đổi bằng **tiếng Việt**. Mọi prompt cho Veo đều viết bằng **tiếng Anh**.
@@ -28,7 +28,8 @@ Người dùng trao đổi bằng **tiếng Việt**. Mọi prompt cho Veo đề
 | **Trung tín** | Lấy Chúa Giê-xu làm trung tâm và đúng Kinh Thánh. Mặc định thể hiện Chúa Giê-xu gián tiếp. Đức Chúa Cha không bao giờ mang hình người. Không có hình ảnh của tôn giáo khác. |
 | **Chân thật** | Cảm xúc có lý do, kiềm chế thay vì bi lụy. Không bịa phép lạ, không có "thần học thịnh vượng". |
 | **Cuốn hút** | Hook trong 2 giây, một khung hình đáng chụp màn hình, cảnh kết lặp lại cảnh mở. |
-| **Liên tục** | Khóa và anchor được dán nguyên văn, gọi nhân vật đúng tên ảnh, giữ hướng màn hình và mạch ánh sáng. |
+| **Liên tục** | Khóa và anchor được dán nguyên văn, gọi nhân vật đúng tên ảnh, giữ hướng màn hình và mạch ánh sáng. Màu trang phục khóa bằng mã HEX. |
+| **Sạch lỗi** | Khóa âm theo nhóm (GEOMETRY, FACE, MATERIAL) thay cho danh sách cấm dài. Mỗi prompt tạo 4 bản rồi chọn bản tốt nhất. |
 | **Khán giả Mỹ** | "Thị trường" là người xem, không phải nơi quay. Bối cảnh có thể là thế giới Kinh Thánh, nước Mỹ hay thế giới vô thời gian. |
 | **Nhân vật = giọng ca** | Giọng nữ thì nhân vật chính là nữ (mặc định), giọng nam thì nhân vật nam, song ca có hai nhân vật chính. |
 

@@ -8,6 +8,19 @@ Mỗi phiên bản là một commit riêng, nên có thể xem hoặc so sánh t
 [v5](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/commit/3c1cdae1bb917d0e5ec271d5149ac468265b735a) ·
 [so sánh v1 → v5](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/compare/93c8d6ac6ff3a846fd88cc53c5f10cdc0a3cd0d0...3c1cdae1bb917d0e5ec271d5149ac468265b735a)
 
+## v5.1.0 — Khóa màu HEX và khóa âm (negative lock) theo cảnh
+
+Áp dụng các kỹ thuật trong bộ slide "Làm chủ Negative Prompt" cho Veo, Pika và Runway.
+
+- COLOR LOCK: 1-2 màu trang phục chủ đạo của mỗi look được ghi kèm mã HEX, ví dụ `mustard-yellow (#D4A017) floral sundress`. Mã giống hệt nhau trong anchor, prompt ảnh tham chiếu và mọi cảnh. Không gắn HEX cho da và tóc.
+- Bốn khóa âm viết một lần rồi dán nguyên văn: TEXT (mọi cảnh), GEOMETRY (tay chân, ngón tay, khớp), FACE (mặt, mắt, môi), MATERIAL (đổi màu, chất liệu chảy, phụ kiện tự mọc).
+- Không nhồi danh sách dài. Mỗi cảnh chỉ dùng TEXT cộng tối đa 2 khóa, chọn theo loại cảnh: cảnh dựa vào gương mặt, cảnh dựa vào cơ thể, hay cảnh không có người. Mặt được giấu có chủ ý thì không bao giờ dùng FACE.
+- Danh sách cấm chỉ ghi danh từ, không viết "no ..." (theo hướng dẫn prompt của Veo). Không cấm "lighting inconsistencies" vì kịch bản ánh sáng đổi sáng có chủ ý.
+- Tùy chọn mới: tách negative ra ô Negative prompt riêng cho Veo API, Vertex AI và các công cụ có ô này.
+- Mỗi prompt tạo ít nhất 4 bản rồi chọn bản tốt nhất. Kiểm theo thứ tự: tay chân, mặt, màu trang phục, chữ lọt vào hình.
+- Mục mới "Sửa clip lỗi": đối chiếu triệu chứng với khóa cần thêm, rồi đơn giản hóa hành động.
+- Cập nhật ví dụ "Porch Light": thêm HEX cho anchor, thêm khóa âm cho đủ 34 cảnh và bảng chọn khóa theo cảnh.
+
 ## v5.0.0 — Một ảnh, một tên
 
 - Tên gốc (ví dụ `CALLIE`) luôn trỏ tới bộ ảnh nhận diện (identity sheet). Bộ ảnh này mặc look dùng nhiều nhất.

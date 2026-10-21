@@ -1,6 +1,6 @@
 ---
 name: instructions
-description: Turns Christian and worship song lyrics into a director's treatment and continuity-locked, cinematic Veo 3 / Veo 3.1 prompts for YouTube music videos aimed at American viewers - song analysis, 3 story concepts, a voice-matched lead, a full cast with named references and wardrobe looks, HEX-locked colors, and 8-second scene prompts guarded by scene-matched negative locks (geometry, face, material). Use this skill whenever this plugin is invoked or the user sends Christian song lyrics to make a music video.
+description: Turns Christian and worship song lyrics into a director's treatment and continuity-locked, cinematic Veo 3 / Veo 3.1 prompts for YouTube music videos aimed at American viewers - song analysis, 3 story concepts, a voice-matched lead, a full cast with named references and wardrobe looks, HEX-locked colors, and 8-second scene prompts guarded by scene-matched negative locks (geometry, face, material), plus a CapCut post-production guide (per-act color grade, titles and fonts, Scripture end cards, audio, export, thumbnail) and a full production file in Markdown. Use this skill whenever this plugin is invoked or the user sends Christian song lyrics to make a music video, or asks how to edit, grade or title a faith music video made from these prompts.
 ---
 
 # Christian Song to Veo Film Director (for American YouTube viewers)
@@ -27,7 +27,7 @@ Your north star, in order of priority:
 
 ## 3. Workflow at a glance
 
-Step 0 Intake -> Step 1 Song analysis -> Step 2 Three concepts -> WAIT for the user's choice -> Step 3 Director's plan and locks -> Step 4 Cast, looks and references -> Step 5 Scene prompts -> Step 6 Self-check -> Step 7 Output and edit notes.
+Step 0 Intake -> Step 1 Song analysis -> Step 2 Three concepts -> WAIT for the user's choice -> Step 3 Director's plan and locks -> Step 4 Cast, looks and references -> Step 5 Scene prompts -> Step 6 Self-check -> Step 7 Output and edit notes -> Step 8 Post-production (when the user has edited the clips or asks about grading, titles, fonts, Scripture overlays or export).
 
 Never write scene prompts before the user picks or approves a concept.
 
@@ -369,6 +369,20 @@ Scene 3 - [prompt]
 
 Long songs: if there are more than 12 scenes, send the plan, the cast and Scenes 1-12 first, and end with: Gõ "tiếp" để nhận Scene 13-24. Continue in batches of 12 with the same numbering and identical locks, anchors and tags.
 
+Full production file: when the last batch is sent, offer once to export everything as one Markdown file. When the user asks for it, write a single .md with the settings, song analysis, chosen concept, every lock, the full timeline, cast and registry, reference prompts, anchors and descriptors, the negative-lock table per scene, all scene prompts in order, edit notes, overlays, Shorts cut and a production summary. Before sending it, check that every scene's style lock, anchors, location locks, lighting phrase and guard are verbatim and match the timeline. If the user later changes a character (age, ethnicity, look), update every anchor, reference prompt and profile in the file together and re-check.
+
+---
+
+## Step 8 - Post-production guide (CapCut)
+
+When the user has assembled the clips, shares a screenshot of the edit, or asks about color, effects, titles, fonts, lyrics, Scripture overlays, audio, export or the thumbnail, read `references/post-production.md` and build the pack from this film's own production file. The essentials:
+- Review a shared edit first and name concrete fixes: meme-style caption fonts, speed below 0.6x without optical flow, global sharpen or "8K" effects, one adjustment layer over contrasting acts, flashy transitions, a project frame rate other than 24 fps.
+- Grade in two layers: a FILM BASE adjustment layer over the whole film, then group grades on the clips, mapping every phrase of the COLOR AND LIGHT SCRIPT to a grade family (night-cold, day-cold, memory, dark-drama, warm-night, golden) with the scene numbers. Color travels with the story, from cold at the wound to warm at the restoration; protect skin tones and the COLOR LOCK garments.
+- Hard cuts by default, dissolves only at the planned match cuts, one light effect on the money-line beat of the climax, nothing flashy.
+- Typography: a serif title (Cormorant Garamond, or Cinzel for the biblical world) with a small sans tagline, warm ivory #F5EFE6 text, antique gold #C9A45C accents, soft shadow, never a stroke. The opening title sits on the first establishing shot after the hook, never on the hook or the climax.
+- At most 2-3 Scripture overlays per film, quoted exactly from KJV or WEB and only from verses you are certain of; end cards on black: the primary verse, a one-line dedication written from the story, an optional blessing verse. Offer one primary verse plus alternatives grouped by theme.
+- Ambience about -28 dB in quiet sections, master about -14 LUFS, export at 24 fps; a thumbnail from the climax frame with at most 6 words drawn from the film's twist.
+
 ## Revisions
 
 - Changing one scene: rewrite only that scene, keeping every lock, anchor and tag.
@@ -387,6 +401,8 @@ When the user says a generated clip is broken, rewrite only that scene, in this 
 ---
 
 ## Worked example
+
+`references/post-production.md` ends with the post-production pack for "Jesus, I Need You" ("The Prayer She Still Remembers"): the light-script to grade-family mapping, the opening title, the climax effect, the end verse and the thumbnail.
 
 A complete worked example - the 34-scene production file for "Through It All" (concept "Porch Light"), with the reference registry, locks, timeline, reference prompts, every scene prompt and the edit notes - is in `examples/through-it-all-porch-light.md`. Read it when you need to see the full expected output.
 

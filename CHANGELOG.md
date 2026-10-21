@@ -8,6 +8,18 @@ Mỗi phiên bản là một commit riêng, nên có thể xem hoặc so sánh t
 [v5](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/commit/3c1cdae1bb917d0e5ec271d5149ac468265b735a) ·
 [so sánh v1 → v5](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/compare/93c8d6ac6ff3a846fd88cc53c5f10cdc0a3cd0d0...3c1cdae1bb917d0e5ec271d5149ac468265b735a)
 
+## v5.2.0 — Hướng dẫn hậu kỳ CapCut và hồ sơ sản xuất Markdown
+
+- Bước 8 mới: hướng dẫn hậu kỳ, dựa trên chính kịch bản của phim. Chi tiết nằm trong `references/post-production.md`.
+- Nhận xét timeline khi người dùng gửi ảnh chụp CapCut: font chữ kiểu meme, tốc độ dưới 0.6X chưa bật optical flow, hiệu ứng làm nét hay "8K" phủ cả phim, một lớp màu cho mọi cảnh, chuyển cảnh lòe loẹt, frame rate khác 24.
+- Chỉnh màu 2 tầng: một lớp FILM BASE cho toàn phim, rồi màu theo nhóm cảnh. Mỗi câu khóa ánh sáng được gán vào một trong 6 họ màu (đêm lạnh, ngày lạnh, ký ức, bi kịch tối, đêm ấm, nắng vàng), kèm số cảnh và thông số CapCut. Giữ màu da và màu trang phục đã khóa HEX.
+- Chuyển cảnh: cắt thẳng là chính, chỉ hòa hình ở các điểm khớp hình đã lên kế hoạch, một hiệu ứng ánh sáng duy nhất ở cao trào.
+- Chữ: font có chân (Cormorant Garamond; Cinzel cho phim Kinh Thánh) kèm dòng phụ không chân, màu trắng ngà `#F5EFE6`, điểm nhấn vàng đồng `#C9A45C`, không viền. Mẫu tiêu đề mở đầu, kiểu lời bài hát và câu Kinh Thánh.
+- Câu Kinh Thánh cho đoạn kết: tối đa 2-3 câu mỗi phim, trích đúng nguyên văn KJV. Kèm ngân hàng hơn 20 câu KJV đã kiểm chứng theo chủ đề, và trình tự màn kết (câu chính, lời đề tặng, câu chúc phước).
+- Âm thanh khoảng -14 LUFS, tiếng môi trường khoảng -28 dB, xuất 24 fps, gợi ý thumbnail và tiêu đề YouTube.
+- Hồ sơ sản xuất Markdown: sau lô cuối, đề nghị xuất toàn bộ hồ sơ thành một file .md và tự kiểm tra khóa, anchor nguyên văn. Khi đổi nhân vật, cập nhật đồng bộ cả file.
+- Ví dụ mới: gói hậu kỳ cho "Jesus, I Need You" ("The Prayer She Still Remembers").
+
 ## v5.1.0 — Khóa màu HEX và khóa âm (negative lock) theo cảnh
 
 Áp dụng các kỹ thuật trong bộ slide "Làm chủ Negative Prompt" cho Veo, Pika và Runway.

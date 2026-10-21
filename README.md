@@ -4,7 +4,7 @@
 
 *Turns Christian and worship song lyrics into a director's treatment and continuity-locked, cinematic Veo 3 / Veo 3.1 prompts for YouTube music videos aimed at American viewers.*
 
-Phiên bản hiện tại: **v5.1.0**. Xem [CHANGELOG.md](CHANGELOG.md).
+Phiên bản hiện tại: **v5.2.0**. Xem [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -17,7 +17,8 @@ Bạn gửi lời bài hát và thời lượng. Skill làm việc như một đ
 3. **Lên kế hoạch đạo diễn.** Viết bộ khóa đồng nhất (style, bối cảnh, motif, kịch bản ánh sáng) và timeline từng cảnh.
 4. **Dựng dàn nhân vật.** Có bảng tên ảnh tham chiếu, prompt tạo ảnh nhận diện, ảnh từng look và ảnh từng độ tuổi.
 5. **Viết prompt cho từng cảnh 8 giây**, theo cấu trúc 9 phần cố định và gửi theo lô 12 cảnh. Mỗi cảnh có khóa âm (negative lock) chọn theo loại cảnh.
-6. **Tự kiểm tra trước khi gửi**, rồi kèm ghi chú dựng phim: cắt nối, chữ chèn trên hình, bản Shorts.
+6. **Tự kiểm tra trước khi gửi**, rồi kèm ghi chú dựng phim: cắt nối, chữ chèn trên hình, bản Shorts. Có thể xuất toàn bộ hồ sơ thành một file Markdown.
+7. **Hướng dẫn hậu kỳ CapCut**, dựa trên chính kịch bản: nhận xét timeline, bảng màu theo từng nhóm cảnh, chuyển cảnh, font và màu chữ cho tiêu đề mở đầu, câu Kinh Thánh cho đoạn kết, âm thanh, xuất file và thumbnail.
 
 Người dùng trao đổi bằng **tiếng Việt**. Mọi prompt cho Veo đều viết bằng **tiếng Anh**.
 
@@ -59,6 +60,8 @@ Trong công cụ, **mỗi ảnh tham chiếu được lưu dưới một tên ri
 ├── skills/
 │   └── instructions/
 │       ├── SKILL.md           # Skill đầy đủ (bản chính)
+│       ├── references/
+│       │   └── post-production.md   # Hướng dẫn hậu kỳ CapCut, ngân hàng câu KJV
 │       └── examples/
 │           └── through-it-all-porch-light.md   # Ví dụ hoàn chỉnh 34 cảnh
 ├── gpt/
@@ -92,7 +95,7 @@ Nếu repo để chế độ riêng tư, máy cài phải đăng nhập được
 
 1. Vào **GPT Builder → Configure**.
 2. Dán toàn bộ nội dung `gpt/instructions.txt` vào ô **Instructions**.
-3. Tải `skills/instructions/SKILL.md` lên mục **Knowledge**. Bản rút gọn trỏ tới file này để lấy chi tiết.
+3. Tải `skills/instructions/SKILL.md` và `skills/instructions/references/post-production.md` lên mục **Knowledge**. Bản rút gọn trỏ tới hai file này để lấy chi tiết.
 
 ## Cách dùng
 
@@ -104,6 +107,7 @@ Nếu repo để chế độ riêng tư, máy cài phải đăng nhập được
 4. Tạo ảnh nhận diện trước, rồi dựng ảnh look và ảnh độ tuổi từ chính ảnh đó. Lưu mỗi ảnh **đúng tên** trong bảng.
 5. Nhận prompt theo lô 12 cảnh. Gõ **"tiếp"** để nhận lô tiếp theo.
 6. Cần sửa một cảnh thì yêu cầu sửa riêng cảnh đó. Nếu đổi khóa hay anchor, skill sẽ liệt kê mọi cảnh bị ảnh hưởng và viết lại các cảnh đó.
+7. Dựng xong trong CapCut, gửi ảnh chụp timeline hoặc hỏi về màu, chữ, câu Kinh Thánh để nhận gói hậu kỳ.
 
 ## Ví dụ
 

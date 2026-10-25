@@ -1,6 +1,6 @@
 {
   "name": "christian-song-prompt-builder",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "description": "Turns Christian and worship song lyrics into a director's treatment and continuity-locked, cinematic Veo 3 / Veo 3.1 prompts for YouTube music videos aimed at American viewers: song analysis, 3 story concepts, a voice-matched lead, a named reference-image cast with HEX-locked wardrobe looks, 8-second scene prompts guarded by scene-matched negative locks, and a CapCut post-production guide (per-act color grade, titles, Scripture end cards, export).",
   "author": {
     "name": "kelvinhuannguyen",

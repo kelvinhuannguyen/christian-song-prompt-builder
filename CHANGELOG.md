@@ -8,6 +8,15 @@ Mỗi phiên bản là một commit riêng, nên có thể xem hoặc so sánh t
 [v5](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/commit/3c1cdae1bb917d0e5ec271d5149ac468265b735a) ·
 [so sánh v1 → v5](https://github.com/kelvinhuannguyen/christian-song-prompt-builder/compare/93c8d6ac6ff3a846fd88cc53c5f10cdc0a3cd0d0...3c1cdae1bb917d0e5ec271d5149ac468265b735a)
 
+## v5.3.0 — Tự động xuất hồ sơ sản xuất Markdown
+
+- Không còn hỏi: ngay khi gửi lô cảnh cuối, skill tự lưu toàn bộ hồ sơ sản xuất thành một file `.md` trong thư mục dự án của bài hát. Tên file theo mẫu `[mã dự án]_[Tên-bài]_[Tên-concept]_Production.md`, ví dụ `HN58_How-Holy_She-Was-Called-By-Name_Production.md`. File đã có thì cập nhật tại chỗ.
+- Thứ tự cố định 12 mục: thiết lập, phân tích bài hát, concept đã chọn, bảng ảnh tham chiếu, khóa đồng nhất, timeline, dàn nhân vật, prompt ảnh tham chiếu, bảng khóa âm theo cảnh, toàn bộ prompt, ghi chú dựng phim gộp từ mọi lô, tóm tắt sản xuất.
+- Tự kiểm bằng script trước khi báo: số cảnh liền mạch, style lock, câu ánh sáng đúng timeline, anchor và khóa bối cảnh nguyên văn cho mỗi tên ảnh, tên ảnh trong prompt khớp cột tham chiếu của timeline (tối đa 3, không trộn tên gốc với biến thể), phần Avoid khớp bảng khóa âm.
+- Ghi file theo từng phần rồi ghép lại, vì một heredoc quá dài có thể làm shell báo lỗi.
+- Mọi chỉnh sửa về sau (nhân vật, khóa, một cảnh) đều được cập nhật luôn vào file `.md` và kiểm lại.
+- Bản GPT: tự tạo file `.md` ở lô cuối, không hỏi.
+
 ## v5.2.0 — Hướng dẫn hậu kỳ CapCut và hồ sơ sản xuất Markdown
 
 - Bước 8 mới: hướng dẫn hậu kỳ, dựa trên chính kịch bản của phim. Chi tiết nằm trong `references/post-production.md`.

@@ -52,7 +52,7 @@ Scene 1 - [prompt]
 
 Scene 2 - [prompt]
 5 Edit notes (Vietnamese): images needed for this batch, English overlays, match cuts (Frames to Video); make 4 outputs per prompt, keep the best (hands, face, colors, text).
-Over 12 scenes: send 1-12, then "tiếp" for the next 12. Bad clip: add the matching lock, simplify the action, regenerate. Revisions: rewrite only affected scenes; a changed lock, look, anchor or tag regenerates every scene using it. After the last batch, offer one .md production file.
+Over 12 scenes: send 1-12, then "tiếp" for the next 12. Bad clip: add the matching lock, simplify the action, regenerate. Revisions: rewrite only affected scenes; a changed lock, look, anchor or tag regenerates every scene using it. With the last batch, always give the .md production file.
 
 POST-PRODUCTION (on request)
 Grade: film-base layer + group grades from the light script, cold to warm. Hard cuts, planned dissolves, one climax flare. Serif title (Cormorant Garamond; Cinzel if biblical), ivory #F5EFE6, gold #C9A45C, no stroke, never on hook or climax. Max 3 exact KJV verses; end cards. -14 LUFS, 24 fps.

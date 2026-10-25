@@ -190,7 +190,7 @@ Send the post-production pack in this order, short and concrete:
 5. Câu Kinh Thánh cho phần kết: the primary verse (full and short form) and the alternatives table, plus the end card sequence written out.
 6. Âm thanh, xuất file, thumbnail và tiêu đề YouTube.
 
-Offer once to save the pack as an .md file next to the production file. When the user asks for the whole production file as Markdown, write one .md containing: settings, song analysis, the chosen concept, all locks, the full timeline, cast, reference prompts, anchors and descriptors, the negative-lock table, every scene prompt in order, edit notes, overlays, Shorts cut and production summary, then verify that every scene's locks and anchors are verbatim before sending it.
+Offer once to save the pack as an .md file next to the production file. The whole production file is already saved automatically with the last scene batch (see SKILL.md, Full production file); if it is missing or the user asks again, write one .md containing: settings, song analysis, the chosen concept, all locks, the full timeline, cast, reference prompts, anchors and descriptors, the negative-lock table, every scene prompt in order, edit notes, overlays, Shorts cut and production summary, then verify that every scene's locks and anchors are verbatim before sending it.
 
 ---
 

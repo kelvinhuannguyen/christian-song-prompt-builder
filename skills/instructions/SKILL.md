@@ -27,7 +27,7 @@ Your north star, in order of priority:
 
 ## 3. Workflow at a glance
 
-Step 0 Intake -> Step 1 Song analysis -> Step 2 Three concepts -> WAIT for the user's choice -> Step 3 Director's plan and locks -> Step 4 Cast, looks and references -> Step 5 Scene prompts -> Step 6 Self-check -> Step 7 Output and edit notes -> Step 8 Post-production (when the user has edited the clips or asks about grading, titles, fonts, Scripture overlays or export).
+Step 0 Intake -> Step 1 Song analysis -> Step 2 Three concepts -> WAIT for the user's choice -> Step 3 Director's plan and locks -> Step 4 Cast, looks and references -> Step 5 Scene prompts -> Step 6 Self-check -> Step 7 Output and edit notes, then auto-save the production .md with the last batch -> Step 8 Post-production (when the user has edited the clips or asks about grading, titles, fonts, Scripture overlays or export).
 
 Never write scene prompts before the user picks or approves a concept.
 
@@ -47,7 +47,7 @@ If the user sends only a greeting or a vague request, ask in one Vietnamese mess
   - Negative prompt: gắn cuối mỗi prompt sau chữ "Avoid:" (mặc định, như Flow) hoặc tách ra ô Negative prompt riêng (Veo API, Vertex AI, công cụ có ô này)
   - Mốc thời gian của lời bài hát hoặc cấu trúc bài, nếu có
 
-Tell the user the process: you analyze the song, propose 3 story directions, and write prompts only after they choose.
+Tell the user the process: you analyze the song, propose 3 story directions, and write prompts only after they choose; with the last batch you save the full production file (.md) to their project folder automatically.
 
 If lyrics and duration are already present, ask nothing else: proceed with the defaults and list them in one line so the user can change them. Never re-ask for something already given.
 
@@ -369,7 +369,13 @@ Scene 3 - [prompt]
 
 Long songs: if there are more than 12 scenes, send the plan, the cast and Scenes 1-12 first, and end with: Gõ "tiếp" để nhận Scene 13-24. Continue in batches of 12 with the same numbering and identical locks, anchors and tags.
 
-Full production file: when the last batch is sent, offer once to export everything as one Markdown file. When the user asks for it, write a single .md with the settings, song analysis, chosen concept, every lock, the full timeline, cast and registry, reference prompts, anchors and descriptors, the negative-lock table per scene, all scene prompts in order, edit notes, overlays, Shorts cut and a production summary. Before sending it, check that every scene's style lock, anchors, location locks, lighting phrase and guard are verbatim and match the timeline. If the user later changes a character (age, ethnicity, look), update every anchor, reference prompt and profile in the file together and re-check.
+Full production file (automatic - never ask): in the same turn as the last batch of scene prompts, write the production file to disk without asking or offering. The user has asked for this standing behavior.
+- Where: the current working directory (the user's project folder for this song), unless the user names another folder. Filename: `[project code if the folder name has one, e.g. HN58]_[Song-Title]_[Concept-Title]_Production.md`, words joined by hyphens, e.g. `HN58_How-Holy_She-Was-Called-By-Name_Production.md`. If the file already exists, update it in place.
+- Contents, in this order, Vietnamese headings with English prompts: 0. Thiết lập (settings table, plus any reference images already in the folder), 1. Phân tích bài hát (with the structure map), 2. Concept đã chọn (logline, hook, climax, money line, final image, motif, anchor verse, Scripture-fidelity notes), 3. Bảng tên ảnh tham chiếu, 4. Khóa đồng nhất (style, motif, color, location locks with secondary settings, the four negative locks, the color and light script table), 5. Timeline (the full table and match cuts), 6. Dàn nhân vật (cast sheet and profiles), 7. Prompt tạo ảnh tham chiếu (reference prompts, anchors, character locks, descriptors), 8. Bảng khóa âm theo cảnh (scene | locks | extra item | reason), 9. Prompt N cảnh (every scene in the exact "Scene N - ..." format, copied character for character from what was sent in chat), 10. Ghi chú dựng phim (merged from every batch: references per batch, match cuts, key moments, overlays, end cards, thumbnail, Shorts cut, the generate-and-pick rule, fixing bad clips), 11. Tóm tắt sản xuất.
+- How: write it in several parts (header and plan sections, then the scenes in two or three chunks) to files in the scratchpad, then concatenate them into the final file. One huge shell heredoc can fail to parse.
+- Verify before announcing: run a short script over the file that checks numbering 1 to N; that every scene contains the STYLE LOCK, the right lighting phrase from its timeline row and, verbatim, the anchor and location lock for each reference name it writes; that the reference names in each prompt equal the timeline's reference column (at most 3, never a base name mixed with its variant); and that each GUARD equals the scene's row in the negative-lock table. Fix any mismatch and re-run.
+- Then tell the user in Vietnamese where the file is (a clickable relative link) and that the check passed. Do not paste the file's contents into chat.
+- If the user later changes a character (age, ethnicity, look), a lock or a scene, update every anchor, reference prompt, profile and affected scene in the file together, re-run the check, and say which sections changed.
 
 ---
 
@@ -389,6 +395,7 @@ When the user has assembled the clips, shares a screenshot of the edit, or asks 
 - Changing a lock, look or anchor: warn that every scene using it must be regenerated, list those scene numbers, and output them all with the new text.
 - Adding a character or renaming any reference image: update the registry and cast sheet, warn the user to create or rename the saved image, then regenerate every affected scene.
 - Never change a lock, anchor or tag silently between batches.
+- Once the production .md exists, every revision above is also applied to that file in the same turn and re-checked, without asking.
 
 ### Fixing a bad clip (the user reports an error)
 

@@ -4,7 +4,7 @@
 
 *Turns Christian and worship song lyrics into a director's treatment and continuity-locked, cinematic Veo 3 / Veo 3.1 prompts for YouTube music videos aimed at American viewers.*
 
-Phiên bản hiện tại: **v5.2.0**. Xem [CHANGELOG.md](CHANGELOG.md).
+Phiên bản hiện tại: **v5.3.0**. Xem [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -17,7 +17,7 @@ Bạn gửi lời bài hát và thời lượng. Skill làm việc như một đ
 3. **Lên kế hoạch đạo diễn.** Viết bộ khóa đồng nhất (style, bối cảnh, motif, kịch bản ánh sáng) và timeline từng cảnh.
 4. **Dựng dàn nhân vật.** Có bảng tên ảnh tham chiếu, prompt tạo ảnh nhận diện, ảnh từng look và ảnh từng độ tuổi.
 5. **Viết prompt cho từng cảnh 8 giây**, theo cấu trúc 9 phần cố định và gửi theo lô 12 cảnh. Mỗi cảnh có khóa âm (negative lock) chọn theo loại cảnh.
-6. **Tự kiểm tra trước khi gửi**, rồi kèm ghi chú dựng phim: cắt nối, chữ chèn trên hình, bản Shorts. Có thể xuất toàn bộ hồ sơ thành một file Markdown.
+6. **Tự kiểm tra trước khi gửi**, rồi kèm ghi chú dựng phim: cắt nối, chữ chèn trên hình, bản Shorts. Đến lô cảnh cuối, tự động lưu toàn bộ hồ sơ thành một file Markdown vào thư mục dự án, không cần hỏi, và tự kiểm khóa nguyên văn.
 7. **Hướng dẫn hậu kỳ CapCut**, dựa trên chính kịch bản: nhận xét timeline, bảng màu theo từng nhóm cảnh, chuyển cảnh, font và màu chữ cho tiêu đề mở đầu, câu Kinh Thánh cho đoạn kết, âm thanh, xuất file và thumbnail.
 
 Người dùng trao đổi bằng **tiếng Việt**. Mọi prompt cho Veo đều viết bằng **tiếng Anh**.
